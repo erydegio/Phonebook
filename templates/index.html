@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Phonebook</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Phone Book</h1>
+    {% if contacts|length < 1 %}
+    <h4 style="text-align: center">There are no records. Create one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Actions</th>
+        </tr>
+        {% for person in contacts %}
+            <tr>
+                <td>{{ person.person_name.capitalize() }}</td>
+                <td>{{ person.person_number }}</td>
+                <td>
+                    <a href="/delete/{{person.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{person.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="name" id="name" placeholder="insert a name">
+            <input type="number" name="number" id="number" placeholder="tel number">
+
+            <input type="submit" value="Add Contact">
+        </form>
+    </div>
+</div>
+{% endblock %}
